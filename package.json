@@ -1,0 +1,38 @@
+{
+  "name": "cypress-automation-library",
+  "version": "1.0.0",
+  "description": "Reusable Cypress library for automation testing",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/support"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "cypress",
+    "automation",
+    "testing",
+    "e2e",
+    "library"
+  ],
+  "author": "sujeet0414",
+  "license": "MIT",
+  "peerDependencies": {
+    "cypress": ">=12.0.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/node": "^22.10.0",
+    "cypress": "^13.17.0",
+    "typescript": "^5.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sujeet0414/cypress-automation-library.git"
+  }
+}
