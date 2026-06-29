@@ -64,6 +64,14 @@ describe('Login flow', () => {
     cy.fillField('[name="email"]', 'test@example.com');
     cy.safeClick('[type="submit"]');
   });
+
+  it('works with tables and iframes', () => {
+    cy.getTableCell(1, 2).should('contain', 'Active');
+    cy.selectDropdown('#country', 'India');
+    cy.withinIframe('iframe#payment', () => {
+      cy.fillField('#card', '4111111111111111');
+    });
+  });
 });
 ```
 
@@ -80,6 +88,31 @@ describe('Login flow', () => {
 | `cy.getByRole(role, name?)` | Select by ARIA role |
 | `cy.apiRequest(method, url, body?)` | Make authenticated API calls |
 | `cy.login(user, pass, options?)` | Reusable login flow |
+| `cy.uploadFile(selector, filePath)` | Upload a file to an input field |
+| `cy.selectDropdown(selector, value)` | Select value from dropdown |
+| `cy.scrollToElement(selector)` | Scroll element into view |
+| `cy.getTableRow(row)` | Get table row by index |
+| `cy.getTableCell(row, col)` | Get table cell by row/column |
+| `cy.withinIframe(selector, callback)` | Run commands inside iframe |
+| `cy.getByLabel(label)` | Find input by label text |
+| `cy.getByPlaceholder(placeholder)` | Find input by placeholder |
+| `cy.hoverElement(selector)` | Hover over element |
+| `cy.checkCheckbox(selector)` | Check a checkbox |
+| `cy.uncheckCheckbox(selector)` | Uncheck a checkbox |
+| `cy.assertText(selector, text)` | Assert element contains text |
+| `cy.assertUrl(path)` | Assert URL contains path |
+| `cy.screenshotNamed(name)` | Take named screenshot |
+| `cy.setLocalStorage(key, value)` | Set localStorage item |
+| `cy.clearLocalStorage()` | Clear all localStorage |
+| `cy.waitForPageLoad()` | Wait until page fully loads |
+| `cy.interceptApi(method, url, alias)` | Intercept API call |
+| `cy.mockApi(method, url, alias, response)` | Mock API response |
+| `cy.waitForApi(alias)` | Wait for intercepted API |
+| `cy.dragAndDrop(source, target)` | Drag and drop elements |
+| `cy.closeModal(selector?)` | Close modal/dialog |
+| `cy.typeSlow(selector, text, delay?)` | Slow typing for animations |
+| `cy.doubleClickElement(selector)` | Double click element |
+| `cy.forceClick(selector)` | Force click element |
 
 ## Utilities
 
@@ -87,23 +120,30 @@ describe('Login flow', () => {
 import {
   byTestId,
   byRole,
+  byLabel,
+  byPlaceholder,
   buildSelector,
   waitForStable,
-  retryAction,
   generateEmail,
+  generatePhone,
+  generatePassword,
+  formatDate,
   setAuthToken,
+  mockApiResponse,
   apiRequest,
 } from 'cypress-automation-library';
 
 // Selector helpers
 const btn = byTestId('submit-btn');
-const link = byRole('link', 'Home');
+const emailInput = byPlaceholder('Enter email');
 
 // Test data
 const email = generateEmail('user');
+const phone = generatePhone();
+const date = formatDate(7); // 7 days from now
 
-// API auth
-setAuthToken('your-jwt-token');
+// API mock
+mockApiResponse('GET', '/api/users', 'getUsers', { users: [] });
 ```
 
 ## Development

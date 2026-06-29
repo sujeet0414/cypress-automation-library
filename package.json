@@ -1,6 +1,6 @@
 {
   "name": "cypress-automation-library",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reusable Cypress library for automation testing",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
